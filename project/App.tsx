@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from './lib/supabase'
 import Auth from './components/Auth'
 import Account from './components/Account'
+import Menu from './components/Menu'
 //import { View } from 'react-native'
 import { Session } from '@supabase/supabase-js'
 
@@ -24,6 +25,9 @@ function HomeScreen({ session }: { session: Session }) {
 
 function AccountScreen({ session }: { session: Session }) {
   return <Account session={session} />;
+}
+function MenuScreen({ session }: { session: Session }) {
+  return <Menu session={session} />;
 }
 
 export default function App() {
@@ -60,6 +64,7 @@ export default function App() {
           >
             <Tab.Screen name="Home" children={() => <HomeScreen session={session} />} />
             <Tab.Screen name="Account" children={() => <AccountScreen session={session} />} />
+            <Tab.Screen name="Menu" children={() => <MenuScreen session={session} />} />
           </Tab.Navigator>
         </NavigationContainer>
   )
