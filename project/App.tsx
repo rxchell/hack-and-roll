@@ -1,9 +1,9 @@
 
 import { useState, useEffect } from 'react'
 import { supabase } from './lib/supabase'
-import Auth from './components/Auth'
-import Account from './components/Account'
-import Menu from './components/Menu'
+import Auth from './components/Auth/Auth'
+import Account from './components/Account/Account'
+import Menu from './components/Order/Menu'
 //import { View } from 'react-native'
 import { Session } from '@supabase/supabase-js'
 

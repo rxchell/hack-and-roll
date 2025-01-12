@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react'
-import { supabase } from '../lib/supabase'
-//import { StyleSheet, View, Alert } from 'react-native'
+import { supabase } from '../../lib/supabase'
 import { Button, Input } from '@rneui/themed'
 import { Session } from '@supabase/supabase-js'
-import { View, StyleSheet, Text, Image, TouchableOpacity, FlatList, ActivityIndicator, Alert, } from 'react-native';
-
+import { View, Text, Image, TouchableOpacity, FlatList, ActivityIndicator, Alert, } from 'react-native';
+import { styles } from './styles';
 
 interface MenuItem {
     id: string;
     name: string;
     description: string;
     image: string;
+    imageUrl: string;
 }
 
 export default function Menu({ session }: { session: Session }) {
@@ -19,8 +19,7 @@ export default function Menu({ session }: { session: Session }) {
   const [imageCache, setImageCache] = useState<{ [key: string]: string }>({})
   const [quantities, setQuantities] = useState<{ [key: string]: number }>({})
 
-
-
+  
   useEffect(() => { fetchMenuItems();
   }, []);
 
@@ -33,11 +32,11 @@ export default function Menu({ session }: { session: Session }) {
       // Fetch URLs for images
       const itemsWithUrls = await Promise.all(
         data.map(async (item: MenuItem) => {
-          const { data: imageUrl, error: imageError } = await supabase.storage
+          const { data: imageUrl } = await supabase.storage
             .from('MenuItemImages')
             .getPublicUrl(item.image);
 
-          if (imageError) throw new Error(imageError.message);
+          if (!imageUrl) throw new Error('Error fetching image URL');
 
           return {
             ...item,
@@ -48,7 +47,11 @@ export default function Menu({ session }: { session: Session }) {
 
       setMenuItems(itemsWithUrls);
     } catch (error) {
-      console.error('Error fetching menu items:', error.message);
+      if (error instanceof Error) {
+        console.error('Error fetching menu items:', error.message);
+      } else {
+        console.error('Error fetching menu items:', error);
+      }
     } finally {
       setLoading(false);
     }
@@ -69,7 +72,11 @@ export default function Menu({ session }: { session: Session }) {
         });
       }
     } catch (error) {
-      console.error('Error updating quantity:', error.message);
+      if (error instanceof Error) {
+        console.error('Error updating quantity:', error.message);
+      } else {
+        console.error('Error updating quantity:', error);
+      }
     }
   };
 
@@ -102,8 +109,13 @@ export default function Menu({ session }: { session: Session }) {
       Alert.alert('Order Created', `Order ID: ${orderId}`);
       setQuantities({});
     } catch (error) {
-      console.error('Error creating order:', error.message);
-      Alert.alert('Error', error.message);
+      if (error instanceof Error) {
+        console.error('Error creating order:', error.message);
+        Alert.alert('Error', error.message);
+      } else {
+        console.error('Error creating order:', error);
+        Alert.alert('Error', 'An unknown error occurred');
+      }
     }
   };
 
@@ -142,47 +154,6 @@ export default function Menu({ session }: { session: Session }) {
     />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-  },
-  menuItem: {
-    flexDirection: 'row',
-    marginBottom: 16,
-    alignItems: 'center',
-  },
-  image: {
-    width: 100,
-    height: 100,
-    marginRight: 16,
-    borderRadius: 8,
-  },
-  textContainer: {
-    flex: 1,
-  },
-  name: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  description: {
-    fontSize: 14,
-    color: '#555',
-  },
-
-  //order quantity setters
-  quantityContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 8,
-  },
-  quantityText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginHorizontal: 8,
-  },
-
-});
 
 /*
   useEffect(() => {
