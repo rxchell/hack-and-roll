@@ -10,7 +10,12 @@ Menu.tsx: ensure tables used are "Orders" and "OrderItems", not their testing co
 
 
 additional dependancies required aside from tutorial specified ones:
+
+```
 npm install @react-navigation/native @react-navigation/native-stack @react-navigation/bottom-tabs
+```
+
+```
 npx expo install react-native-screens react-native-safe-area-context react-native-gesture-handler react-native-reanimated react-native-vector-icons
 
 To do:
