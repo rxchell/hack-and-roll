@@ -3,6 +3,8 @@ import { supabase } from './lib/supabase'
 import Auth from './components/Auth/Auth'
 import Account from './components/Account/Account'
 import Menu from './components/Order/Menu'
+import Voucher from './components/Voucher/Voucher'
+//import { View } from 'react-native'
 import { Session } from '@supabase/supabase-js'
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -22,6 +24,10 @@ function AccountScreen({ session }: { session: Session }) {
 }
 function MenuScreen({ session }: { session: Session }) {
   return <Menu session={session} />;
+}
+
+function VoucherScreen({ session }: { session: Session}) {
+  return <Voucher session={session} />;
 }
 
 export default function App() {
@@ -59,8 +65,9 @@ export default function App() {
             })}
           >
             <Tab.Screen name="Home" children={() => <HomeScreen session={session} />} />
-            <Tab.Screen name="Menu" children={() => <MenuScreen session={session} />} />
             <Tab.Screen name="Account" children={() => <AccountScreen session={session} />} />
+            <Tab.Screen name="Menu" children={() => <MenuScreen session={session} />} />
+            <Tab.Screen name="Voucher" children={() => <VoucherScreen session={session} />} />
           </Tab.Navigator>
         </NavigationContainer>
   )
