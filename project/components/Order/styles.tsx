@@ -37,6 +37,34 @@ export const styles = StyleSheet.create({
     paddingLeft: 28,
     marginRight: 16,
   },
+
+  //category of menu items
+  categoryContainer: {
+    padding: 16,
+  },
+  categoryTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  categoryItem: {
+    flexDirection: 'column',
+    marginBottom: 16,
+    alignItems: 'center',
+  },
+  categoryButton: {
+    backgroundColor: '#ffc89a',
+    padding: 8,
+    borderRadius: 8,
+    margin: 4,
+  },
+  selectedCategoryButton: {
+    backgroundColor: '#ff9e4d',
+  },
+  categoryScrollView: {
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+  },
   
   //order quantity setters
   quantityContainer: {

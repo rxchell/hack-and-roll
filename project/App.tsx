@@ -1,25 +1,19 @@
-
 import { useState, useEffect } from 'react'
 import { supabase } from './lib/supabase'
 import Auth from './components/Auth/Auth'
 import Account from './components/Account/Account'
 import Menu from './components/Order/Menu'
-//import { View } from 'react-native'
 import { Session } from '@supabase/supabase-js'
-
-
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import Home from './components/Home/Home'
 
 const Tab = createBottomTabNavigator();
 
 function HomeScreen({ session }: { session: Session }) {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Welcome, {session.user.email}!</Text>
-    </View>
+    <Home session={session} />
   );
 }
 
@@ -50,52 +44,24 @@ export default function App() {
           <Tab.Navigator
             screenOptions={({ route }) => ({
               tabBarIcon: ({ focused, color, size }) => {
-                let iconName;
+                let iconName: keyof typeof Ionicons.glyphMap | undefined;
                 if (route.name === 'Home') {
                   iconName = focused ? 'home' : 'home-outline';
                 } else if (route.name === 'Account') {
                   iconName = focused ? 'person' : 'person-outline';
+                } else if (route.name === 'Menu') {
+                  iconName = focused ? 'fast-food' : 'fast-food-outline';
                 }
                 return <Ionicons name={iconName} size={size} color={color} />;
               },
-              tabBarActiveTintColor: 'tomato',
+              tabBarActiveTintColor: '#ff9e4d',
               tabBarInactiveTintColor: 'gray',
             })}
           >
             <Tab.Screen name="Home" children={() => <HomeScreen session={session} />} />
-            <Tab.Screen name="Account" children={() => <AccountScreen session={session} />} />
             <Tab.Screen name="Menu" children={() => <MenuScreen session={session} />} />
+            <Tab.Screen name="Account" children={() => <AccountScreen session={session} />} />
           </Tab.Navigator>
         </NavigationContainer>
   )
-/*  
-return (
-    <View>
-      {session && session.user ? <Account key={session.user.id} session={session} /> : <Auth />}    
-    </View>
-  )*/
 }
-
-/*
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-*/
-
