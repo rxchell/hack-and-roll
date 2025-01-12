@@ -11,6 +11,7 @@ interface MenuItem {
     description: string;
     image: string;
     imageUrl: string;
+    cost: number;
 }
 
 export default function Menu({ session }: { session: Session }) {
@@ -19,7 +20,7 @@ export default function Menu({ session }: { session: Session }) {
   const [imageCache, setImageCache] = useState<{ [key: string]: string }>({})
   const [quantities, setQuantities] = useState<{ [key: string]: number }>({})
 
-  
+
   useEffect(() => { fetchMenuItems();
   }, []);
 
@@ -126,13 +127,16 @@ export default function Menu({ session }: { session: Session }) {
       <View style={styles.menuItem}>
         <Image source={{ uri: item.imageUrl }} style={styles.image} />
         <View style={styles.textContainer}>
-          <Text style={styles.name}>{item.name}</Text>
+            <View style={styles.row}>
+            <Text style={styles.name}>{item.name}</Text>
+            <Text style={styles.cost}>${item.cost}</Text>
+            </View>
           <Text style={styles.description}>{item.description}</Text>
-          <View style={styles.quantityContainer}>
-            <Button title="-" onPress={() => updateQuantity(item.id, quantity - 1)} />
-            <Text style={styles.quantityText}>{quantity}</Text>
-            <Button title="+" onPress={() => updateQuantity(item.id, quantity + 1)} />
-          </View>
+            <View style={styles.quantityContainer}>
+              <Button title="-" buttonStyle={styles.button} onPress={() => updateQuantity(item.id, quantity - 1)} />
+              <Text style={styles.quantityText}>{quantity}</Text>
+              <Button title="+" buttonStyle={styles.button} onPress={() => updateQuantity(item.id, quantity + 1)} />
+            </View>
         </View>
       </View>
     );
