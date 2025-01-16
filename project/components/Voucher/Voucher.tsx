@@ -1,55 +1,101 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../../lib/supabase'
-import { StyleSheet, View, Alert } from 'react-native'
+import { StyleSheet } from 'react-native'
+import { View, Text, Image, TouchableOpacity, FlatList, ActivityIndicator, } from 'react-native';
 import { Button, Input } from '@rneui/themed'
 import { Session } from '@supabase/supabase-js'
+import { styles } from './styles';
+import { render } from 'react-dom';
+import RedeemButton from './RedeemButton';
 
-interface Vouchers {
+interface Voucher {
     id: number
     name: string
     description: string
     type: string 
-    discount_value: number
-    image: string
-}
-
-interface UserVouchers {
-    id: number
-    user_id: number
-    voucher_id: number
-    is_used: boolean
+    discount: number
+    cost: number
 }
 
 export default function Voucher({ session }: { session: Session }) {
-    const [vouchers, setVouchers] = useState<UserVouchers[]>([])
+    const [vouchers, setVouchers] = useState<Voucher[]>([])
     const [loading, setLoading] = useState(true)
+    const [points, setPoints] = useState(0)
 
     useEffect(() => {
         fetchUserVouchers(); 
+        fetchUserPoints();
     }, []);
+
+    async function fetchUserPoints() {
+        if (!session?.user) throw new Error('No user on the session!')
+        try {
+            const user_id = session.user.id
+            const {data, error} = await supabase.from('users')
+            .select('points')
+            .eq('id', user_id).single()
+
+            if (error) throw new Error(error.message)
+
+            setPoints(data?.points)
+        } catch (error) {
+            console.log(error)
+        }
+    } 
 
 
     async function fetchUserVouchers() {
         if (!session?.user) throw new Error('No user on the session!')
         try {
             const user_id = session.user.id
-            const {data, error} = await supabase.from('UserVouchers').select('*')
-            .eq('user_id', user_id)
+            const { data, error } = await supabase
+            .from('Vouchers')
+            .select(`
+                id, name, description, type, discount, cost
+            `)
+
+            
+            if (data != null) {
+
+                setVouchers(data)   
+            }
 
             if (error) throw new Error(error.message)
-            
-            // Fetch images?!
 
-            setVouchers(data)    
+             
         } catch (error) {
             console.error('Error updating quantity:', error);
-        }   
+        } finally {
+            setLoading(false);
+        }  
+    }
+    
+    const renderVoucher = ({ item }: { item: Voucher }) => {
+        return (
+            <View style={styles.voucher}>
+                <View style={styles.row}>
+                    <Text style={styles.name}>{item.name}</Text>
+                </View>
+                <Text>Description: {item.description}</Text>
+                <RedeemButton/>
+                <Text>Cost: {item.cost}</Text>
+            </View>
+        );
     }
 
+    if (loading) {
+        return <Text>Loading menu...</Text>;
+    }
 
     return (
-        <div>
-            Hi
-        </div>
+        <View>
+            <Text style={styles.title}>Number of Points: {points}</Text>
+            <Text style={styles.subtitle}>Here is a list of vouchers!</Text>
+            <FlatList 
+            data={vouchers}
+            renderItem={renderVoucher}
+            keyExtractor={(item) => item.id.toString()}
+            contentContainerStyle={styles.container}/>
+        </View>
     )
 }

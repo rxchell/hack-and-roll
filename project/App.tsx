@@ -57,6 +57,8 @@ export default function App() {
                   iconName = focused ? 'person' : 'person-outline';
                 } else if (route.name === 'Menu') {
                   iconName = focused ? 'fast-food' : 'fast-food-outline';
+                } else if (route.name === 'Voucher') {
+                  iconName = focused ? 'cash' : 'cash-outline';
                 }
                 return <Ionicons name={iconName} size={size} color={color} />;
               },

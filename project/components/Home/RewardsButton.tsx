@@ -7,12 +7,12 @@ const RewardsButton: React.FC = () => {
     const navigation = useNavigation();
 
     const handlePress = () => {
-        navigation.navigate('');
+        navigation.navigate('Voucher');
     };
 
     return (
         <Button
-            title="View my rewards"
+            title="View rewards"
             onPress={handlePress}
             buttonStyle={styles.rewardsbutton}
         />
