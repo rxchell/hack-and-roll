@@ -7,6 +7,7 @@ import { Session } from '@supabase/supabase-js'
 import { styles } from './styles';
 import { render } from 'react-dom';
 import RedeemButton from './RedeemButton';
+import { Ionicons } from '@expo/vector-icons';
 
 interface Voucher {
     id: number
@@ -71,14 +72,27 @@ export default function Voucher({ session }: { session: Session }) {
     }
     
     const renderVoucher = ({ item }: { item: Voucher }) => {
+        type IconName = 'wallet-outline' | 'pricetags-outline' | 'card-outline' | 'gift-outline'
+                        | 'bag-add-outline'
+        const icons: IconName[] = ['wallet-outline', 'pricetags-outline', 'card-outline', 'gift-outline'
+            , 'bag-add-outline'
+        ]
+        const randomIndex = Math.floor(Math.random() * icons.length)
+        const icon: IconName = icons[randomIndex]
+
         return (
             <View style={styles.voucher}>
-                <View style={styles.row}>
-                    <Text style={styles.name}>{item.name}</Text>
+                <View style={styles.columnLeft}>
+                    <View style={styles.row}>
+                        <Text style={styles.name}>{item.name}</Text>
+                    </View>
+                    <Text>Description: {item.description}</Text>
+                    <RedeemButton/>
+                    <Text>Cost: {item.cost}</Text>
                 </View>
-                <Text>Description: {item.description}</Text>
-                <RedeemButton/>
-                <Text>Cost: {item.cost}</Text>
+                <View style={styles.columnRight}>
+                    <Ionicons name={icon} size={90}></Ionicons>
+                </View>
             </View>
         );
     }

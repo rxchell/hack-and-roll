@@ -5,12 +5,11 @@ export const styles = StyleSheet.create({
     padding: 16,
   },
   voucher: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     marginBottom: 16,
-    alignItems: 'left',
     backgroundColor: '#D3D3D3',
     borderRadius: 10,
-    padding: 15
+    padding: 14
   },
   textContainer: {
     flex: 1,
@@ -41,6 +40,19 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingEnd: 1,
     justifyContent: 'space-between',
+  },
+  columnLeft: {
+    flexDirection: 'column',
+    paddingRight: 10,
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    width: '70%'
+  },
+  columnRight: {
+    flexDirection: 'column',
+    alignItems:'flex-end',
+    width: '30%',
+    justifyContent: 'flex-end',
   },
   discount: {
     fontSize: 16,
