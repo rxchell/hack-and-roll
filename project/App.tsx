@@ -3,13 +3,10 @@ import { supabase } from './lib/supabase'
 import Auth from './components/Auth/Auth'
 import Account from './components/Account/Account'
 import Menu from './components/Order/Menu'
-<<<<<<< Updated upstream
-=======
-import Voucher from './components/Voucher/Voucher'
+//import Voucher from './components/Voucher/Voucher'
 import Popular from './components/Popular/Popular'
 import Leaderboard from './components/Leaderboard/Leaderboard'
 //import { View } from 'react-native'
->>>>>>> Stashed changes
 import { Session } from '@supabase/supabase-js'
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -70,15 +67,12 @@ export default function App() {
                   iconName = focused ? 'fast-food' : 'fast-food-outline';
                 } else if (route.name === 'Order') {
                   iconName = focused ? 'cart' : 'cart-outline';
-<<<<<<< Updated upstream
-=======
                 } else if (route.name === 'Voucher') {
                   iconName = focused ? 'cash' : 'cash-outline';
                 } else if (route.name === 'Popular') {
                   iconName = focused ? 'alert' : 'alert-outline';
                 } else if (route.name === 'Leaderboard') {
                   iconName = focused ? 'podium' : 'podium-outline';
->>>>>>> Stashed changes
                 }
                 return <Ionicons name={iconName} size={size} color={color} />;
               },
@@ -90,12 +84,7 @@ export default function App() {
             <Tab.Screen name="Menu" children={() => <MenuScreen session={session} />} />
             <Tab.Screen name="Order" children={() => <OrderScreen session={session} />} />
             <Tab.Screen name="Account" children={() => <AccountScreen session={session} />} />
-<<<<<<< Updated upstream
-=======
-            <Tab.Screen name="Menu" children={() => <MenuScreen session={session} />} />
-            <Tab.Screen name="Voucher" children={() => <VoucherScreen session={session} />} />
             <Tab.Screen name="Leaderboard" children={() => <LeaderboardScreen session={session} />} />
->>>>>>> Stashed changes
           </Tab.Navigator>
         </NavigationContainer>
   )
