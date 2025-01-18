@@ -60,7 +60,6 @@ export const styles = StyleSheet.create({
     paddingLeft: 28,
     marginRight: 16,
   },
-  
   redeembutton: {
     width: 150,
     height: 40,

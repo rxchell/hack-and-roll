@@ -89,26 +89,26 @@ export default function Menu({ session }: { session: Session }) {
   };
 
   const updateQuantity = async (itemId: string, newQuantity: number) => {
-  if (newQuantity < 0) return; // Prevent negative quantities
+    if (newQuantity < 0) return; // Prevent negative quantities
 
-  setQuantities((prev) => ({ ...prev, [itemId]: newQuantity }));
+    setQuantities((prev) => ({ ...prev, [itemId]: newQuantity }));
 
-  try {
-    if (newQuantity === 0) {
-    await supabase.from('OrderItems_testing').delete().eq('menuItem_id', itemId);
-    } else {
-    await supabase.from('OrderItems_testing').upsert({
-      menuItem_id: itemId,
-      quantity: newQuantity,
-    });
+    try {
+      if (newQuantity === 0) {
+      await supabase.from('OrderItems_testing').delete().eq('menuItem_id', itemId);
+      } else {
+      await supabase.from('OrderItems_testing').upsert({
+        menuItem_id: itemId,
+        quantity: newQuantity,
+      });
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+      console.error('Error updating quantity:', error.message);
+      } else {
+      console.error('Error updating quantity:', error);
+      }
     }
-  } catch (error) {
-    if (error instanceof Error) {
-    console.error('Error updating quantity:', error.message);
-    } else {
-    console.error('Error updating quantity:', error);
-    }
-  }
   };
 
   const createOrder = async () => {

@@ -4,9 +4,10 @@ const { width } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
     welcometext: {
-        fontSize: 18,
+        fontSize: 30,
         fontWeight: 'bold',
-        marginBottom: 16,
+        marginBottom: 8,
+
     },
     orderbutton: {
         backgroundColor: '#ff9e4d',
@@ -22,4 +23,8 @@ export const styles = StyleSheet.create({
         margin: 16,
         width: width-50
     },
+    image: {
+        width: '100%',
+        height: '100%',
+      },
 });
