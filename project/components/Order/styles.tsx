@@ -17,25 +17,24 @@ export const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 1,
+  },  
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // space between name and price
+    alignItems: 'flex-start',
   },
   name: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
+    flex: 1,
   },
   description: {
     fontSize: 14,
-    color: '#555',
-  },
-  row: {
-    flexDirection: 'row',
-    paddingEnd: 1,
-    justifyContent: 'space-between',
+    marginVertical: 8,
   },
   cost: {
     fontSize: 16,
     fontWeight: 'bold',
-    paddingLeft: 28,
-    marginRight: 16,
   },
 
   //category of menu items
@@ -99,5 +98,5 @@ export const styles = StyleSheet.create({
   errorText: { fontSize: 16, fontWeight: 'bold' },
 
   // order confirmation button 
-  confirmButton: { backgroundColor: '#ff9e4d', padding: 16, borderRadius: 8, margin: 16 },
+  confirmButton: { backgroundColor: '#ff9e4d', padding: 16, borderRadius: 8, marginTop: 16, marginBottom: 50 },
 });

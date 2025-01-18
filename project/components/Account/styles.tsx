@@ -23,4 +23,34 @@ export const styles = StyleSheet.create({
       margin: 6,
       width: width-50
     },
+    pointsText: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: '#333', // Dark color for contrast
+      textAlign: 'center',
+    },
+    avatar: {
+      borderRadius: 5,
+      overflow: 'hidden',
+      maxWidth: '100%',
+    },
+    image: {
+      objectFit: 'cover',
+      paddingTop: 0,
+      borderColor: 'rgb(0, 0, 0)',
+      borderRadius: 5,
+    },
+    noImage: {
+      backgroundColor: '#333',
+      borderWidth: 1,
+      borderStyle: 'solid',
+      borderColor: 'rgb(0, 0, 0)',
+      borderRadius: 5,
+    },
+    profilepicturebutton: {
+        backgroundColor: '#499EE3',
+        padding: 5,
+        borderRadius: 5,
+        margin: 5,
+    },
 })
