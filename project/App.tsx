@@ -7,6 +7,8 @@ import Menu from './components/Order/Menu'
 import Popular from './components/Popular/Popular'
 import Leaderboard from './components/Leaderboard/Leaderboard'
 //import { View } from 'react-native'
+import Voucher from './components/Voucher/Voucher'
+//import { View } from 'react-native'
 import { Session } from '@supabase/supabase-js'
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -26,6 +28,10 @@ function AccountScreen({ session }: { session: Session }) {
 
 function MenuScreen({ session }: { session: Session }) {
   return <Menu session={session} />;
+}
+
+function VoucherScreen({ session }: { session: Session}) {
+  return <Voucher session={session} />;
 }
 
 function OrderScreen({ session }: { session: Session }) {
@@ -73,6 +79,8 @@ export default function App() {
                   iconName = focused ? 'alert' : 'alert-outline';
                 } else if (route.name === 'Leaderboard') {
                   iconName = focused ? 'podium' : 'podium-outline';
+                } else if (route.name === 'Voucher') {
+                  iconName = focused ? 'cash' : 'cash-outline';
                 }
                 return <Ionicons name={iconName} size={size} color={color} />;
               },
@@ -81,9 +89,10 @@ export default function App() {
             })}
           >
             <Tab.Screen name="Home" children={() => <HomeScreen session={session} />} />
-            <Tab.Screen name="Menu" children={() => <MenuScreen session={session} />} />
             <Tab.Screen name="Order" children={() => <OrderScreen session={session} />} />
             <Tab.Screen name="Account" children={() => <AccountScreen session={session} />} />
+            <Tab.Screen name="Menu" children={() => <MenuScreen session={session} />} />
+            <Tab.Screen name="Voucher" children={() => <VoucherScreen session={session} />} />
             <Tab.Screen name="Leaderboard" children={() => <LeaderboardScreen session={session} />} />
           </Tab.Navigator>
         </NavigationContainer>

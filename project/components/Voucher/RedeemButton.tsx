@@ -1,22 +1,22 @@
 import React from 'react';
-import { Button } from '@rneui/themed'
+import { Button, Input } from '@rneui/themed'
 import { useNavigation } from '@react-navigation/native';
 import { styles } from './styles';
 
-const RewardsButton: React.FC = () => {
+const RedeemButton: React.FC = () => {
     const navigation = useNavigation();
 
     const handlePress = () => {
-        navigation.navigate('Voucher');
+        navigation.navigate('');
     };
 
     return (
         <Button
-            title="View rewards"
+            title="Buy/Redeem"
             onPress={handlePress}
-            buttonStyle={styles.rewardsbutton}
+            buttonStyle={styles.redeembutton}
         />
     );
 };
 
-export default RewardsButton;
+export default RedeemButton;
