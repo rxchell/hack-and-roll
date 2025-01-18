@@ -3,6 +3,10 @@ import { supabase } from './lib/supabase'
 import Auth from './components/Auth/Auth'
 import Account from './components/Account/Account'
 import Menu from './components/Order/Menu'
+//import Voucher from './components/Voucher/Voucher'
+import Popular from './components/Popular/Popular'
+import Leaderboard from './components/Leaderboard/Leaderboard'
+//import { View } from 'react-native'
 import Voucher from './components/Voucher/Voucher'
 //import { View } from 'react-native'
 import { Session } from '@supabase/supabase-js'
@@ -15,9 +19,7 @@ import Order from './components/Order/Order'
 const Tab = createBottomTabNavigator();
 
 function HomeScreen({ session }: { session: Session }) {
-  return (
-    <Home session={session} />
-  );
+  return <Home session={session} />;
 }
 
 function AccountScreen({ session }: { session: Session }) {
@@ -34,6 +36,12 @@ function VoucherScreen({ session }: { session: Session}) {
 
 function OrderScreen({ session }: { session: Session }) {
   return <Order session={session} />;
+}
+function PopularScreen({ session }: { session: Session }) {
+  return <Popular session={session} />;
+}
+function LeaderboardScreen({ session }: { session: Session }) {
+  return <Leaderboard session={session} />;
 }
 
 export default function App() {
@@ -67,6 +75,12 @@ export default function App() {
                   iconName = focused ? 'cart' : 'cart-outline';
                 } else if (route.name === 'Voucher') {
                   iconName = focused ? 'cash' : 'cash-outline';
+                } else if (route.name === 'Popular') {
+                  iconName = focused ? 'alert' : 'alert-outline';
+                } else if (route.name === 'Leaderboard') {
+                  iconName = focused ? 'podium' : 'podium-outline';
+                } else if (route.name === 'Voucher') {
+                  iconName = focused ? 'cash' : 'cash-outline';
                 }
                 return <Ionicons name={iconName} size={size} color={color} />;
               },
@@ -79,6 +93,7 @@ export default function App() {
             <Tab.Screen name="Account" children={() => <AccountScreen session={session} />} />
             <Tab.Screen name="Menu" children={() => <MenuScreen session={session} />} />
             <Tab.Screen name="Voucher" children={() => <VoucherScreen session={session} />} />
+            <Tab.Screen name="Leaderboard" children={() => <LeaderboardScreen session={session} />} />
           </Tab.Navigator>
         </NavigationContainer>
   )
