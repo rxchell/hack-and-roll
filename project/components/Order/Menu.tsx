@@ -39,7 +39,6 @@ export default function Menu({ session }: { session: Session }) {
       const { data: imageUrl } = await supabase.storage
       .from('MenuItemImages')
       .getPublicUrl(item.image);
-
       if (!imageUrl) throw new Error('Error fetching image URL');
 
       return {
@@ -70,12 +69,14 @@ export default function Menu({ session }: { session: Session }) {
 
   const categories = ['All', ...new Set(menuItems.map(item => item.type))];
 
+  
   const renderCategoryButtons = () => {
     return (
       <Tab
         value={categories.indexOf(selectedCategory)}
         onChange={(e) => setSelectedCategory(categories[e])}
         indicatorStyle={{ backgroundColor: '#ff9e4d' }}
+        scrollable
       >
         {categories.map((category, index) => (
           <Tab.Item
@@ -150,14 +151,15 @@ export default function Menu({ session }: { session: Session }) {
   
   const renderMenuItem = ({ item }: { item: MenuItem & { imageUrl: string } }) => {
   const quantity = quantities[item.id] || 0;
+  const formattedCost = item.cost.toFixed(2);
 
   return (
     <View style={styles.menuItem}>
     <Image source={{ uri: item.imageUrl }} style={styles.image} />
     <View style={styles.textContainer}>
       <View style={styles.row}>
-      <Text style={styles.name}>{item.name}</Text>
-      <Text style={styles.cost}>${item.cost}</Text>
+      <Text style={[styles.name, { flexWrap: 'wrap' }]}>{item.name}</Text>
+      <Text style={[styles.cost, { flex: 1, textAlign: 'right' }]}>${formattedCost}</Text>
       </View>
       <Text style={styles.description}>{item.description}</Text>
       <View style={styles.quantityContainer}>
