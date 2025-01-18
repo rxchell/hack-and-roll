@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { supabase } from './lib/supabase'
 import Auth from './components/Auth/Auth'
 import Account from './components/Account/Account'
@@ -89,10 +89,10 @@ export default function App() {
             })}
           >
             <Tab.Screen name="Home" children={() => <HomeScreen session={session} />} />
-            <Tab.Screen name="Order" children={() => <OrderScreen session={session} />} />
-            <Tab.Screen name="Account" children={() => <AccountScreen session={session} />} />
             <Tab.Screen name="Menu" children={() => <MenuScreen session={session} />} />
+            <Tab.Screen name="Order" children={() => <OrderScreen session={session} />} />
             <Tab.Screen name="Voucher" children={() => <VoucherScreen session={session} />} />
+            <Tab.Screen name="Account" children={() => <AccountScreen session={session} />} />
             <Tab.Screen name="Leaderboard" children={() => <LeaderboardScreen session={session} />} />
           </Tab.Navigator>
         </NavigationContainer>

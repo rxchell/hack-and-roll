@@ -120,7 +120,6 @@ export default function Leaderboard({ session }: { session: Session }) {
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={styles.welcometext}>Leaderboard</Text>
 
             {/* List of leaderboard users */}
             <FlatList
